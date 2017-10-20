@@ -20,14 +20,35 @@ number = """
 20 69 36 41 72 30 23 88 34 62 99 69 82 67 59 85 74 04 36 16
 20 73 35 29 78 31 90 01 74 31 49 71 48 86 81 16 23 57 05 54
 01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48
-"""
+"""[1:-1]
+
 data = list(map(lambda s: list(map(lambda n: int(n), s.split(" "))), number.split("\n")))
 dim1 = len(data[0])
 dim2 = len(data)
-print(dim1)
 
+#横方向
 list1 = []
 for i in range(dim2):
     for j in range(dim1 - 3):
-        four_numbers = map(lambda k: data[i][k], range(j, j+3))
+        four_numbers = map(lambda k: data[i][k], range(j, j + 4))
         list1 += [functools.reduce(lambda a,b: a * b, four_numbers)]
+#縦方向
+list2 = []
+for i in range(dim2 - 3):
+    for j in range(dim1):
+        four_numbers = map(lambda k: data[k][j], range(i, i + 4))
+        list2 += [functools.reduce(lambda a,b: a * b, four_numbers)]
+#斜め右方向
+list3 = []
+for i in range(dim2 - 3):
+    for j in range(dim1 - 3):
+        four_numbers = map(lambda k: data[i + k][j + k], range(4))
+        list3 += [functools.reduce(lambda a,b: a * b, four_numbers)]
+#斜め左方向
+list4 = []
+for i in range(dim2 - 3):
+    for j in range(3, dim1):
+        four_numbers = map(lambda k: data[i + k][j - k], range(4))
+        list4 += [functools.reduce(lambda a,b: a * b, four_numbers)]
+result = max(list1 + list2 + list3 + list4)
+print(result)
