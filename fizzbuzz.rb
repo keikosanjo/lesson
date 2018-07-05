@@ -1,4 +1,4 @@
-(1..100).each do |num|
+(1..10).each do |num|
 	str = ''
 	str += 'Fizz' if(num%3)==0
 	str += 'Buzz' if(num%5)==0
